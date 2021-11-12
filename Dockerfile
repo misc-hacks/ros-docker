@@ -25,7 +25,7 @@ RUN apt-get update \
     && echo "abc ALL=(ALL:ALL) NOPASSWD:ALL" | tee /etc/sudoers > /dev/null \
     && chown abc:abc -R /workspace
 
-User abc
+USER abc
 WORKDIR /workspace
 RUN rosdep update \
     && rosdep install \
@@ -34,4 +34,4 @@ RUN rosdep update \
     && sudo rm -rf /var/lib/apt/lists/* \
     && pip3 install -U argcomplete
 
-User root
+USER root
