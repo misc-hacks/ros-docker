@@ -12,6 +12,8 @@ RUN curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key -o 
 ARG ROS_VERSION="foxy-20211013"
 ARG ROS_PACKAGE="ros2-${ROS_VERSION}-linux-focal-amd64.tar.bz2"
 RUN mkdir /workspace \
+    && chown abc:abc /workspace \
+    && usermod -d /workspace abc \
     && curl -L https://github.com/ros2/ros2/releases/download/release-${ROS_VERSION}/${ROS_PACKAGE} -o /workspace/${ROS_PACKAGE} \
     && mkdir /workspace/ros2_foxy \
     && tar xf /workspace/${ROS_PACKAGE} -C /workspace/ros2_foxy \
@@ -21,13 +23,13 @@ ARG PACKAGES="python3-rosdep libpython3-dev python3-pip"
 RUN apt-get update \
     && apt-get install -y ${PACKAGES} \
     && rm -rf /var/lib/apt/lists/* \
-    && rosdep init \
-    && echo "abc ALL=(ALL:ALL) NOPASSWD:ALL" | tee /etc/sudoers > /dev/null \
-    && chown abc:abc -R /workspace
+    && echo "abc ALL=(ALL:ALL) NOPASSWD:ALL" | tee /etc/sudoers > /dev/null
 
 USER abc
 WORKDIR /workspace
-RUN rosdep update \
+RUN sudo rosdep init \
+    && chown abc:abc -R /workspace \
+    && rosdep update \
     && rosdep install \
         --from-paths /workspace/ros2_foxy/ros2-linux/share --ignore-src -y --skip-keys \
         "cyclonedds fastcdr fastrtps rti-connext-dds-5.3.1 urdfdom_headers" \
