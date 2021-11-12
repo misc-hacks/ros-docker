@@ -29,6 +29,7 @@ RUN apt-get update \
 # Initialize ROS
 RUN rosdep init \
     && rosdep update \
+    && apt-get update \
     && rosdep install \
         --from-paths /workspace/ros2_foxy/ros2-linux/share --ignore-src -y --skip-keys \
         "cyclonedds fastcdr fastrtps rti-connext-dds-5.3.1 urdfdom_headers" \
