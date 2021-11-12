@@ -28,7 +28,7 @@ RUN apt-get update \
 USER abc
 WORKDIR /workspace
 RUN sudo rosdep init \
-    && chown abc:abc -R /workspace \
+    && sudo chown abc:abc -R /workspace \
     && rosdep update \
     && rosdep install \
         --from-paths /workspace/ros2_foxy/ros2-linux/share --ignore-src -y --skip-keys \
