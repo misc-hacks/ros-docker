@@ -15,7 +15,7 @@ RUN mkdir /workspace \
     && curl -L https://github.com/ros2/ros2/releases/download/release-${ROS_VERSION}/${ROS_PACKAGE} -o /workspace/${ROS_PACKAGE} \
     && mkdir /workspace/ros2_foxy \
     && tar xf /workspace/${ROS_PACKAGE} -C /workspace/ros2_foxy \
-    && rm /workspace/${ROS_PACKAGE} \
+    && rm /workspace/${ROS_PACKAGE}
 
 ARG PACKAGES="python3-rosdep libpython3-dev python3-pip"
 RUN apt-get update \
