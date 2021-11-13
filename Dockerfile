@@ -38,3 +38,5 @@ RUN rosdep init \
 
 # Post-initialization
 RUN chown abc:abc -R /workspace
+
+LABEL org.opencontainers.image.description="Containerized ROS environments."
