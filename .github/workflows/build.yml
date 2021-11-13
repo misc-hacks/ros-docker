@@ -1,0 +1,25 @@
+name: "build"
+
+on:
+  pull_request:
+    branches:
+    - main
+
+jobs:
+  build:
+    name: "Build"
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Build:checkout"
+        uses: actions/checkout@v2
+      - name: "Build:login"
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.PAT }}
+      - name: "Build:build-push"
+        uses: docker/build-push-action@v2
+        with:
+          push: true
+          tags: ghcr.io/misc-hacks/ros:foxy-desktop
