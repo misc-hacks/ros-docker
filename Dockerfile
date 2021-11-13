@@ -39,4 +39,18 @@ RUN rosdep init \
 # Post-initialization
 RUN chown abc:abc -R /workspace
 
+LABEL maintainer="misc-hacks"
+LABEL build_version="none"
+
+LABEL org.opencontainers.image.authors="misc-hacks"
+LABEL org.opencontainers.image.created="none"
 LABEL org.opencontainers.image.description="Containerized ROS environments."
+LABEL org.opencontainers.image.documentation="https://github.com/misc-hacks/ros-docker"
+LABEL org.opencontainers.image.licenses="GPL-3.0-only"
+LABEL org.opencontainers.image.ref.name="none"
+LABEL org.opencontainers.image.revision="none"
+LABEL org.opencontainers.image.source="https://github.com/misc-hacks/ros-docker"
+LABEL org.opencontainers.image.title="ros"
+LABEL org.opencontainers.image.url="https://github.com/misc-hacks/ros-docker/packages"
+LABEL org.opencontainers.image.vendor="none"
+LABEL org.opencontainers.image.version="none"
