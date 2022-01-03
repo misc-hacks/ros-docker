@@ -1,4 +1,4 @@
-FROM lscr.io/linuxserver/rdesktop:mate-bionic
+FROM lscr.io/linuxserver/rdesktop:xfce-bionic
 
 # Get common dependencies
 ARG PACKAGES="curl gnupg2 lsb-release build-essential"
@@ -17,9 +17,9 @@ RUN apt-get update \
     && apt-get install -y ${PACKAGES} \
     && rm -rf /var/lib/apt/lists/*
 
-# Link to setup script
+# Add hint for the setup script
 RUN mkdir /workspace \
-    && ln -s /opt/ros/melodic/setup.bash /workspace/setup.bash
+    && echo 'echo "source /opt/ros/melodic/setup.bash"' > /workspace/setup.hint
 
 # Get ROS dependencies
 ARG PACKAGES="python-rosdep python-rosinstall python-rosinstall-generator python-wstool"
