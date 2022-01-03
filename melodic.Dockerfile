@@ -1,4 +1,4 @@
-FROM lscr.io/linuxserver/rdesktop:bionic-focal
+FROM lscr.io/linuxserver/rdesktop:mate-bionic
 
 # Get common dependencies
 ARG PACKAGES="curl gnupg2 lsb-release build-essential"
