@@ -8,10 +8,10 @@ RUN apt-get update \
 
 # Change locale settings
 RUN locale-gen en_US en_US.UTF-8 \
-    && echo "
-export LANG=en_US.UTF-8
-export LANGUAGE=en_US:en
-export LC_ALL=en_US.UTF-8
+    && echo "\n\
+export LANG=en_US.UTF-8\n\
+export LANGUAGE=en_US:en\n\
+export LC_ALL=en_US.UTF-8\n\
 " | tee /etc/profiles.d/locales.sh > /dev/null
 
 # Add apt source for ROS
