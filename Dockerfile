@@ -13,7 +13,8 @@ RUN curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key -o 
 
 # Get ROS package
 ARG ROS_VERSION="foxy-20211013"
-ARG ROS_PACKAGE="ros2-${ROS_VERSION}-linux-focal-amd64.tar.bz2"
+ARG ROS_ARCH="amd64"
+ARG ROS_PACKAGE="ros2-${ROS_VERSION}-linux-focal-${ROS_ARCH}.tar.bz2"
 RUN mkdir /workspace \
     && curl -L https://github.com/ros2/ros2/releases/download/release-${ROS_VERSION}/${ROS_PACKAGE} -o /workspace/${ROS_PACKAGE} \
     && mkdir /workspace/ros2_foxy \
