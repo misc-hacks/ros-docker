@@ -20,6 +20,7 @@ RUN apt-get update \
 # Add hint for the setup script
 RUN mkdir /workspace \
     && echo 'echo "source /opt/ros/melodic/setup.bash"' > /workspace/setup.hint
+    && chmod +x /workspace/setup.hint
 
 # Get ROS dependencies
 ARG PACKAGES="python-rosdep python-rosinstall python-rosinstall-generator python-wstool"

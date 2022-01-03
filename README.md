@@ -34,3 +34,12 @@ docker run -d \
 
 Note the default user:password is `abc:abc` and make sure to change the password
 the first time you login.
+
+Besides, to enable better video performance, you are also suggested to disable
+display compositing:
+- Goto
+    - Applications (at the top-left corner of the desktop)
+    - Settings (menu)
+    - Window Manager Tweaks (sub-menu)
+    - Compositor (tab)
+- Uncheck "Enable display compositing"
