@@ -28,6 +28,17 @@ RUN apt-get update \
 # Span the workspace directory
 RUN mkdir /workspace
 
+# Get ROS dependencies
+ARG PACKAGES="python3-rosdep libpython3-dev python3-pip"
+RUN apt-get update \
+    && apt-get install -y ${PACKAGES} \
+    && rm -rf /var/lib/apt/lists/*
+
+# Initialize ROS
+RUN rosdep init \
+    && rosdep update \
+    && pip3 install -U argcomplete
+
 # Post-initialization
 RUN chown abc:abc -R /workspace
 
