@@ -1,7 +1,7 @@
-name: build
+name: build-dev
 
 on:
-  push:
+  pull_request:
     branches:
     - main
 
@@ -37,7 +37,7 @@ jobs:
         run: |
           IMAGE_ID=ghcr.io/misc-hacks/ros
           echo "IMAGE_ID=${IMAGE_ID}" >> $GITHUB_ENV
-          VERSION=${{ matrix.image.version }}
+          VERSION=${{ matrix.image.version }}-dev
           echo "VERSION=${VERSION}" >> $GITHUB_ENV
       - name: Build and Push
         uses: docker/build-push-action@v2
