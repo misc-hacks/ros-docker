@@ -12,7 +12,7 @@ RUN locale-gen en_US en_US.UTF-8 \
 export LANG=en_US.UTF-8\n\
 export LANGUAGE=en_US:en\n\
 export LC_ALL=en_US.UTF-8\n\
-" | tee /etc/profiles.d/locales.sh > /dev/null
+" | tee /etc/profile.d/locales.sh > /dev/null
 
 # Add apt source for ROS
 RUN curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | sudo apt-key add - \
