@@ -1,0 +1,48 @@
+name: build
+
+on:
+  push:
+    branches:
+    - main
+
+jobs:
+  push:
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+      contents: read
+
+    strategy:
+      fail-fast: false
+      matrix:
+        image:
+          - { version: "foxy-desktop", file: "./foxy.Dockerfile", platforms: "linux/amd64,linux/arm64/v8" }
+          - { version: "melodic-desktop", file: "./melodic.Dockerfile", platforms: "linux/amd64,linux/arm64/v8" }
+          - { version: "kinetic-desktop", file: "./kinetic.Dockerfile", platforms: "linux/amd64" }
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up QEMU (conditionally)
+        uses: docker/setup-qemu-action@v1
+        if: ${{ matrix.image.platforms != 'linux/amd64' }}
+
+      - name: Install buildx
+        uses: docker/setup-buildx-action@v1
+
+      - name: Log in to registry
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+
+      - name: Determine variables
+        run: |
+          IMAGE_ID=ghcr.io/misc-hacks/ros
+          echo "IMAGE_ID=${IMAGE_ID}" >> $GITHUB_ENV
+          VERSION=${{ matrix.image.version }}
+          echo "VERSION=${VERSION}" >> $GITHUB_ENV
+      - name: Build and Push
+        uses: docker/build-push-action@v2
+        with:
+          platforms: ${{ matrix.image.platforms }}
+          push: true
+          tags: ${{ env.IMAGE_ID }}:${{ env.VERSION }}
+          file: ${{ matrix.image.file }}
