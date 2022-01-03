@@ -16,7 +16,9 @@ jobs:
       fail-fast: false
       matrix:
         image:
+          - { version: "foxy-desktop", file: "./foxy.Dockerfile", platforms: "linux/amd64,linux/arm64/v8" }
           - { version: "melodic-desktop", file: "./melodic.Dockerfile", platforms: "linux/amd64,linux/arm64/v8" }
+          - { version: "kinetic-desktop", file: "./kinetic.Dockerfile", platforms: "linux/amd64" }
 
     steps:
       - uses: actions/checkout@v2

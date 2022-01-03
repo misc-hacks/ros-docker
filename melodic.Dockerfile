@@ -1,10 +1,18 @@
 FROM lscr.io/linuxserver/rdesktop:xfce-bionic
 
 # Get common dependencies
-ARG PACKAGES="curl gnupg2 lsb-release build-essential"
+ARG PACKAGES="build-essential curl gnupg2 locales lsb-release"
 RUN apt-get update \
     && apt-get install -y ${PACKAGES} \
     && rm -rf /var/lib/apt/lists/*
+
+# Change locale settings
+RUN locale-gen en_US en_US.UTF-8 \
+    && echo "
+export LANG=en_US.UTF-8
+export LANGUAGE=en_US:en
+export LC_ALL=en_US.UTF-8
+" | tee /etc/profiles.d/locales.sh > /dev/null
 
 # Add apt source for ROS
 RUN curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key -o /usr/share/keyrings/ros-archive-keyring.gpg \
@@ -17,10 +25,8 @@ RUN apt-get update \
     && apt-get install -y ${PACKAGES} \
     && rm -rf /var/lib/apt/lists/*
 
-# Add hint for the setup script
-RUN mkdir /workspace \
-    && echo 'echo "source /opt/ros/melodic/setup.bash"' > /workspace/setup.hint \
-    && chmod +x /workspace/setup.hint
+# Span the workspace directory
+RUN mkdir /workspace
 
 # Get ROS dependencies
 ARG PACKAGES="python-rosdep python-rosinstall python-rosinstall-generator python-wstool"
